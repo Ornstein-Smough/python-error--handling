@@ -1,0 +1,128 @@
+"""
+Python Error Handling Mini Project
+----------------------------------
+Covers:
+1. Handle Division by Zero in Calculator
+2. File Not Found Handler
+3. Valid Integer Input
+4. Mini Project: Safe Banking System
+"""
+
+# -------------------------------
+# 1. Division by Zero in Calculator
+# -------------------------------
+def safe_calculator():
+    try:
+        a = float(input("Enter first number: "))
+        b = float(input("Enter second number: "))
+        op = input("Enter operation (+, -, *, /): ").strip()
+
+        if op == "+":
+            print("Result:", a + b)
+        elif op == "-":
+            print("Result:", a - b)
+        elif op == "*":
+            print("Result:", a * b)
+        elif op == "/":
+            try:
+                print("Result:", a / b)
+            except ZeroDivisionError:
+                print("Error: Division by zero is not allowed.")
+        else:
+            print("Invalid operator.")
+    except ValueError:
+        print("Error: Please enter valid numbers.")
+
+# -------------------------------
+# 2. File Not Found Handler
+# -------------------------------
+def safe_file_reader():
+    filename = input("Enter filename to open: ").strip()
+    try:
+        with open(filename, "r") as f:
+            print("\nFile Contents:\n", f.read())
+    except FileNotFoundError:
+        print("Error: File not found.")
+
+# -------------------------------
+# 3. Valid Integer Input
+# -------------------------------
+def get_valid_integer():
+    while True:
+        try:
+            num = int(input("Enter a valid integer: "))
+            print("You entered:", num)
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
+# -------------------------------
+# 4. Mini Project: Safe Banking System
+# -------------------------------
+def safe_banking():
+    balance = 1000  # Starting balance
+    while True:
+        print(f"\nYour balance: ${balance}")
+        print("Options: [deposit] [withdraw] [exit]")
+        choice = input("Choose: ").strip().lower()
+
+        if choice == "deposit":
+            try:
+                amount = float(input("Enter amount to deposit: "))
+                if amount <= 0:
+                    print("Error: Deposit amount must be positive.")
+                else:
+                    balance += amount
+                    print("Deposit successful.")
+            except ValueError:
+                print("Error: Please enter a valid number.")
+
+        elif choice == "withdraw":
+            try:
+                amount = float(input("Enter amount to withdraw: "))
+                if amount <= 0:
+                    print("Error: Withdrawal amount must be positive.")
+                elif amount > balance:
+                    print("Error: Insufficient balance.")
+                else:
+                    balance -= amount
+                    print("Withdrawal successful.")
+            except ValueError:
+                print("Error: Please enter a valid number.")
+
+        elif choice == "exit":
+            print("Final balance:", balance)
+            break
+        else:
+            print("Invalid choice.")
+
+# -------------------------------
+# Main Menu
+# -------------------------------
+def main():
+    while True:
+        print("\n===== Error Handling Project =====")
+        print("1. Safe Calculator (division by zero)")
+        print("2. Safe File Reader (file not found)")
+        print("3. Valid Integer Input")
+        print("4. Safe Banking System (Mini Project)")
+        print("5. Exit")
+
+        choice = input("Choose an option (1-5): ").strip()
+
+        if choice == "1":
+            safe_calculator()
+        elif choice == "2":
+            safe_file_reader()
+        elif choice == "3":
+            get_valid_integer()
+        elif choice == "4":
+            safe_banking()
+        elif choice == "5":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select 1-5.")
+
+if __name__ == "__main__":
+    main()
